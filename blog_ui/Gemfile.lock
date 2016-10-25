@@ -1,0 +1,72 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ast (2.2.0)
+    backports (3.6.7)
+    domain_name (0.5.20160128)
+      unf (>= 0.0.5, < 1.0.0)
+    haml (4.0.0)
+      tilt
+    http-cookie (1.0.2)
+      domain_name (~> 0.5)
+    mime-types (2.99)
+    multi_json (1.11.2)
+    netrc (0.11.0)
+    parser (2.3.0.2)
+      ast (~> 2.2)
+    powerpack (0.1.1)
+    prometheus-client (0.5.0)
+      quantile (~> 0.2.0)
+    puma (2.16.0)
+    quantile (0.2.0)
+    rack (1.6.4)
+    rack-protection (1.5.3)
+      rack
+    rack-test (0.6.3)
+      rack (>= 1.0)
+    rainbow (2.1.0)
+    rest-client (1.8.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
+    rubocop (0.37.0)
+      parser (>= 2.3.0.2, < 3.0)
+      powerpack (~> 0.1)
+      rainbow (>= 1.99.1, < 3.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (~> 0.3)
+    ruby-progressbar (1.7.5)
+    sinatra (1.4.7)
+      rack (~> 1.5)
+      rack-protection (~> 1.4)
+      tilt (>= 1.3, < 3)
+    sinatra-contrib (1.4.6)
+      backports (>= 2.0)
+      multi_json
+      rack-protection
+      rack-test
+      sinatra (~> 1.4.0)
+      tilt (>= 1.3, < 3)
+    sinatra-static-assets (1.0.4)
+      sinatra (>= 1.1.0)
+    tilt (2.0.2)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.2)
+    unicode-display_width (0.3.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  haml
+  prometheus-client
+  puma
+  rest-client
+  rubocop
+  sinatra
+  sinatra-contrib
+  sinatra-static-assets
+
+BUNDLED WITH
+   1.11.2

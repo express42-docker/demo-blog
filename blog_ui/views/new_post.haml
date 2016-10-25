@@ -1,0 +1,13 @@
+%h2 Add blog post
+%form{ action: '/new', method: 'post', role: 'form'}
+  .form-group
+    %label{for: 'title'} Post title:
+    %input{name:'title', placeholder: 'Your tite', class: 'form-control', id: 'title'}
+  .form-group
+    %label{for: 'comment'} Post text:
+    %textarea{name: 'text', placeholder: 'Your text', class: 'form-control', rows: 7, id: 'post'}
+  .form-group
+    %label{for: 'tags'} Post title:
+    %input{name: 'tags', placeholder: 'Ex. tag1,tag2,etc... (optional)', class: 'form-control', id: 'tags'}
+  .form-group
+    %input{class: 'btn btn-primary', type: 'submit', value:'Post it!'}
