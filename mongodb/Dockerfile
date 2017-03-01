@@ -1,4 +1,4 @@
-FROM express42/ubuntu:16.04
+FROM express42/ubuntu:dockermk-mar
 
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN groupadd -r mongodb && useradd -r -g mongodb mongodb
@@ -56,6 +56,11 @@ VOLUME /data/db /data/configdb
 
 COPY docker-entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
+
+COPY service-healthcheck /usr/local/bin/
+RUN chmod +x /usr/local/bin/service-healthcheck
+
+HEALTHCHECK CMD ["service-healthcheck"]
 
 EXPOSE 27017
 CMD ["mongod"]

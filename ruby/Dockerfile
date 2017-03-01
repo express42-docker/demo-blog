@@ -1,4 +1,4 @@
-FROM express42/ubuntu:16.04
+FROM express42/ubuntu:dockermk-mar
 
 # skip installing gem documentation
 RUN mkdir -p /usr/local/etc \
