@@ -1,5 +1,8 @@
 FROM express42/ubuntu:16.04
 
+LABEL   Name="express42/prometheus-grafana"
+LABEL   Version="1.0"
+
 ARG GRAFANA_VERSION
 
 RUN apt-get update && \

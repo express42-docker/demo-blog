@@ -1,5 +1,8 @@
 FROM express42/ubuntu:16.04
 
+LABEL   Name="express42/golang"
+LABEL   Version="1.0"
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     g++ \
     gcc \

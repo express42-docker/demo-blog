@@ -1,5 +1,8 @@
 FROM express42/ubuntu:16.04
 
+LABEL   Name="express42/ruby:2.3"
+LABEL   Version="1.0"
+
 # skip installing gem documentation
 RUN mkdir -p /usr/local/etc \
 	&& { \
