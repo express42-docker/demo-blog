@@ -1,3 +1,4 @@
 FROM ubuntu:16.04
 
-COPY sources.list /etc/apt/sources.list
+# Use ru. mirror for ubuntu packages
+RUN sed --in-place 's/archive\.ubuntu\.com/ru.archive.ubuntu.com/g' /etc/apt/sources.list
