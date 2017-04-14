@@ -57,5 +57,10 @@ VOLUME /data/db /data/configdb
 COPY docker-entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
+COPY service-healthcheck /usr/local/bin/
+RUN chmod +x /usr/local/bin/service-healthcheck
+
+HEALTHCHECK CMD ["service-healthcheck"]
+
 EXPOSE 27017
 CMD ["mongod"]
