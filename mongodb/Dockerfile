@@ -25,16 +25,16 @@ RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/dow
 #       Key fingerprint = 42F3 E95A 2C4F 0827 9C49  60AD D68F A50F EA31 2927
 # uid                  MongoDB 3.2 Release Signing Key <packaging@mongodb.com>
 #
-ENV GPG_KEYS \
-	DFFA3DCF326E302C4787673A01C4E7FAAAB2461C \
-	42F3E95A2C4F08279C4960ADD68FA50FEA312927
+ARG GPG_KEY1=DFFA3DCF326E302C4787673A01C4E7FAAAB2461C
+ARG GPG_KEY2=42F3E95A2C4F08279C4960ADD68FA50FEA312927
+
 RUN set -ex \
-	&& for key in $GPG_KEYS; do \
+	&& for key in $GPG_KEY1 $GPG_KEY2 ; do \
 		apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
 	done
 
-ENV MONGO_MAJOR 3.2
-ENV MONGO_VERSION 3.2.6
+ARG MONGO_MAJOR=3.2
+ARG MONGO_VERSION=3.2.6
 
 RUN echo "deb http://repo.mongodb.org/apt/debian wheezy/mongodb-org/$MONGO_MAJOR main" > /etc/apt/sources.list.d/mongodb-org.list
 
