@@ -5,6 +5,7 @@ require 'sinatra/static_assets'
 require 'rest-client'
 require 'tilt/haml'
 require 'haml'
+require 'socket'
 
 class UI < Sinatra::Base
   register Sinatra::StaticAssets
@@ -18,13 +19,16 @@ class UI < Sinatra::Base
 
   before do
     session[:flashes] = [] if session[:flashes].class != Array
+    @response_node = JSON.parse(RestClient::Request.execute(method: :get, url: "http://#{backend_host}:#{backend_port}/response_node", timeout: 1))['node']
   end
 
   get '/' do
-    @title='All posts'
+    @title = 'All posts'
 
     begin
       @posts = JSON.parse(RestClient::Request.execute(method: :get, url: "http://#{backend_host}:#{backend_port}/posts", timeout: 1))
+
+      #@response_node = JSON.parse(RestClient::Request.execute(method: :get, url: "http://#{backend_host}:#{backend_port}/response_node", timeout: 1))['node']
     rescue
       session[:flashes] << { type: 'alert-danger', message: 'Can\'t show blog posts, some problems with backend. <a href="." class="alert-link">Refresh?</a>' }
     end
@@ -35,8 +39,7 @@ class UI < Sinatra::Base
   end
 
   get '/new' do
-    @title= 'New sosts'
-
+    @title = 'New posts'
     @flashes = session[:flashes]
     session[:flashes] = nil
     haml :new_post

@@ -35,6 +35,11 @@ class Blog < Sinatra::Base
     end
   end
 
+  get '/response_node' do
+    content_type :json
+    json(node: Socket.gethostname.to_json)
+  end
+
   get '/*' do |request|
     halt 404
   end
