@@ -1,0 +1,8 @@
+sudo: required
+
+services:
+  - docker
+
+script:
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ];` then echo "dev"; else echo $TRAVIS_BRANCH; fi`
+  - docker build -t serjs/$REPO:$TAG blog_ui
