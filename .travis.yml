@@ -6,13 +6,23 @@ before_install:
   - docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
 
 script:
-  - export PROJECT_NAME=serjs/blog_ui
-  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "dev"; else echo $TRAVIS_BRANCH;
+  - export PROJECT_NAME=$DOCKERHUB_USER/blog_ui
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH;
     fi`
-  - docker build -t $PROJECT_NAME:$TAG blog_ui
-  - docker push $PROJECT_NAME:$TAG
-
+jobs:
+  include:
+    - stage: Build docker image
+      script:
+        - docker build -t $PROJECT_NAME:$TAG blog_ui
+    - stage: Test docker image
+      script:
+        - docer run --rm $PROJECT_NAME:$TAG rake tests.rb
+    - stage: Push docker image
+      script:
+        - docker push $PROJECT_NAME:$TAG
 env:
   global:
+  # DOCKERHUB_LOGIN
   - secure: CjHz7FWVkWjIWfuGcS5TU34SSe30MSrq17oXIIQ8/1uH4sFLjVO8sUsbpdI1fg5FrnR/NDqROq5DjXIg8Zy+GXac6m0EdlNzRkdct4fMKHwKtGXhhvRecF9mcHRcMsMCsvsW1Y5iiDNlynNmKcJq5rBD/3zGNUtdn+PkUrpHNGVxXoPJHLRZueN5cbUKNJundaNj9sEQPxZT0IK3KV0GhxC7su2didSVLIgSBHzJEFVgIkRhhqOazDB/Whe4p3b/LSu5wJGLa8sqqZtAoaXR5K63SqZQPIbGtF6mgX4mjXAfhgKJ/pSUnTdvrjJS/kowu9Z2a120Ueho2XCCMiw8GAdXNbfkjVCiRZVFRJpIjULarhx2hUT+Xx0Pi2ehEfU1OkS/bdfyy00BOJucmes+usRe3fQ8QrAEuxO91VFR5XJtIDpkS/Gzcc9BBGTyV6wIm2w3XtvBsGlMC7RY3I94EFrB5R8uio2sggJazkShaOYGfdsaHm4DrfiTgdpQK//EmL1jEA6IEr5ianlPLqJ0ppSEAeZpSZcxE2Tgi8b3jIAPiZDuUT3wNTBVo91ATXoId4qXiYH47tc14hZ/35XOHPOI64YJaVKbdzMHuKODtwHAxqhVuuWoUAVW9uRW5lrk3h2493JBUnNpRhgf8B1YRYkcgsbbAEqHSe7xPL+74Pg=
+  # DOCKERHUB_PASSWORD
   - secure: wm7FIvXQbRGZK8fdqNLJ12c0S0C227yG/d66vXqYpkXDzTUnEufqWKIa0yTVpajve5BYiq0KYw8UqO5DIStlIZXGvVyxbq/LjqVBddZz+yhH100QQ9d4swOR5MxsuKWTfwQsxVOPQWLZwQ7P/Sb82LRYFWKAxVph8MU6BVfZz5kfv64yPU0ZCwRhWqgVgTftWz3a3KTbeSqiOXrjkYmBwlSLlP6URjU72FMJQY19grkR18MxFcqcSVRjovvOUtnh8IiJVPDHOgkdRPG1q2nn1bajee1zcM+mByAGyfU8DxMYxJOvwH+kao8i2cE76OUcTZjrqKc7aXz+uOGJL0ThfwtxxD2jKnZ1k7wXyhBLMCDGkJe43xOkaXeHboMvji6EHmlReYjA5bfZRa1K5f98qMXQUNrItN5BnDHjMXV5XAAolyzRPg3iRitXedEt8irFu3ZyxthASiKQXESKIH3sr0AtNtGwzHszT2HmKcIaZDuVTAGXdl7mld1J5jzPv6PCdhezwD5qlTIdsesAl+5datTzDJc6TTSGhC4pBn7H2DedzCmv/HzOeepgeXUnuqbMTxDxP205/tbwTgGGqybPjmjyhFl9q7CICxWhBqdv7zDTSgxwl83E5w9sGhvLPBIGvEwiWvK75aECJ8iegdFLMJOINYehFqsYTkFEmk9AZFs=
