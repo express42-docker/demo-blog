@@ -14,7 +14,7 @@ jobs:
         - docker build -t $PROJECT_NAME:$TAG blog_ui
     - stage: Test docker image
       script:
-        - docer run --rm $PROJECT_NAME:$TAG rake tests.rb
+        - docker run --rm $PROJECT_NAME:$TAG rake tests.rb
     - stage: Push docker image
       script:
         - docker push $PROJECT_NAME:$TAG
