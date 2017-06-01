@@ -5,10 +5,6 @@ services:
 before_install:
   - docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
 
-script:
-  - export PROJECT_NAME=$DOCKERHUB_USER/blog_ui
-  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH;
-    fi`
 jobs:
   include:
     - stage: Build docker image
@@ -22,6 +18,9 @@ jobs:
         - docker push $PROJECT_NAME:$TAG
 env:
   global:
+  PROJECT_NAME=$DOCKERHUB_USER/blog_ui
+  TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH;
+    fi`
   # DOCKERHUB_LOGIN
   - secure: CjHz7FWVkWjIWfuGcS5TU34SSe30MSrq17oXIIQ8/1uH4sFLjVO8sUsbpdI1fg5FrnR/NDqROq5DjXIg8Zy+GXac6m0EdlNzRkdct4fMKHwKtGXhhvRecF9mcHRcMsMCsvsW1Y5iiDNlynNmKcJq5rBD/3zGNUtdn+PkUrpHNGVxXoPJHLRZueN5cbUKNJundaNj9sEQPxZT0IK3KV0GhxC7su2didSVLIgSBHzJEFVgIkRhhqOazDB/Whe4p3b/LSu5wJGLa8sqqZtAoaXR5K63SqZQPIbGtF6mgX4mjXAfhgKJ/pSUnTdvrjJS/kowu9Z2a120Ueho2XCCMiw8GAdXNbfkjVCiRZVFRJpIjULarhx2hUT+Xx0Pi2ehEfU1OkS/bdfyy00BOJucmes+usRe3fQ8QrAEuxO91VFR5XJtIDpkS/Gzcc9BBGTyV6wIm2w3XtvBsGlMC7RY3I94EFrB5R8uio2sggJazkShaOYGfdsaHm4DrfiTgdpQK//EmL1jEA6IEr5ianlPLqJ0ppSEAeZpSZcxE2Tgi8b3jIAPiZDuUT3wNTBVo91ATXoId4qXiYH47tc14hZ/35XOHPOI64YJaVKbdzMHuKODtwHAxqhVuuWoUAVW9uRW5lrk3h2493JBUnNpRhgf8B1YRYkcgsbbAEqHSe7xPL+74Pg=
   # DOCKERHUB_PASSWORD
