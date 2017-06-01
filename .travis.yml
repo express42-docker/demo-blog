@@ -8,9 +8,15 @@ before_install:
   - docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
 
 script:
-    - docker build -t $PROJECT_NAME:$TAG blog_ui
-    - docker run --rm $PROJECT_NAME:$TAG rake tests.rb
-    - docker push $PROJECT_NAME:$TAG
+    - stage: Build docker image
+      script:
+        - docker build -t $PROJECT_NAME:$TAG blog_ui
+    - stage: Test docker image
+      script:
+        - docker run -t --rm $PROJECT_NAME:$TAG rspec tests.rb
+    - stage: Push docker image
+      script:
+        - docker push $PROJECT_NAME:$TAG
 env:
   global:
   # DOCKERHUB_LOGIN
