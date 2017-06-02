@@ -19,7 +19,7 @@ dirs = [
   "ubuntu"
 ]
 
-s = subprocess.check_output(['git', 'diff-tree', tag, '--name-only','-m', '--pretty='])
+s = subprocess.check_output(['git', 'diff-tree', 'HEAD..' + tag, '--name-only','-m', '--pretty='])
 changed_dirs = s.split('\n')
 
 # print(changed_dirs)
