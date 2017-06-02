@@ -17,6 +17,7 @@ dirs = [
   "prometheus",
   "ruby",
   "ubuntu"
+  "ubuntu2"
 ]
 
 s = subprocess.check_output(['git', 'diff-tree', 'HEAD...master', '--name-only','-m', '--pretty='])
