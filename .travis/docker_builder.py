@@ -19,8 +19,7 @@ dirs = [
   "ubuntu"
 ]
 
-s = subprocess.check_output(['git', 'diff-tree', 'prtest', '--name-only','-m', '--pretty='])
-                             #os.environ['TRAVIS_BRANCH'], '--name-only','-m', '--pretty='])
+s = subprocess.check_output(['git', 'diff-tree', tag, '--name-only','-m', '--pretty='])
 changed_dirs = s.split('\n')
 
 # print(changed_dirs)

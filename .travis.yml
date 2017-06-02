@@ -4,7 +4,7 @@ services:
 
 before_install:
   - export PROJECT_NAME=$DOCKERHUB_USER/blog_ui
-  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
+  - export TAG=`if [ "$TRAVIS_PULL_REQUEST" == "true" ]; then echo $TRAVIS_PULL_REQUEST_BRANCH; elif [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
   - docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
 
 script:
