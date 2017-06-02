@@ -7,17 +7,12 @@ before_install:
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
   - docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
 
-jobs:
-  include:
-    - stage: Build docker image
-      script:
-        - docker build -t $PROJECT_NAME:$TAG blog_ui
-    - stage: Test docker image
-      script:
-        - docker run --rm $PROJECT_NAME:$TAG rspec tests.rb
-    - stage: Push docker image
-      script:
-        - docker push $PROJECT_NAME:$TAG
+script:
+  - python .travis/docker_builder.py
+  #- docker build -t $PROJECT_NAME:$TAG blog_ui
+  #- docker run $PROJECT_NAME:$TAG rspec tests.rb
+  #- docker push $PROJECT_NAME:$TAG
+
 env:
   global:
   # DOCKERHUB_LOGIN
