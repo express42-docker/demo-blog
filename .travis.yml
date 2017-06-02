@@ -8,6 +8,7 @@ before_install:
   - docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
 
 script:
+  - echo $TRAVIS_BRANCH
   - python .travis/docker_builder.py
   #- docker build -t $PROJECT_NAME:$TAG blog_ui
   #- docker run $PROJECT_NAME:$TAG rspec tests.rb
